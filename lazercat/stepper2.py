@@ -38,9 +38,9 @@ StepDir = 1  # Set to 1 or 2 for clockwise
 
 # Read wait time from command line
 if len(sys.argv) > 1:
-    WaitTime = int(sys.argv[1]) / float(10000)
+    WaitTime = int(sys.argv[1]) / float(50000)
 else:
-    WaitTime = 10 / float(10000)
+    WaitTime = 10 / float(50000)
 
 # Initialise variables
 StepCounter = 0
@@ -72,7 +72,7 @@ while True:
     if (StepCounter < 0):
         directionSwitchCounter += 1
         StepCounter = StepCount + StepDir
-    if directionSwitchCounter >= 500:
+    if directionSwitchCounter >= 100:
         directionSwitchCounter = 0
         if StepDir == 1:
             StepDir = -1
