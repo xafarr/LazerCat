@@ -47,8 +47,10 @@ StepCounter = 0
 
 directionSwitchCounter = 0
 
+counter = 6
+
 # Start main loop
-while True:
+while counter >= 0:
 
     print("StepCounter = " + str(StepCounter))
     print("Seq[StepCounter] = " + str(Seq[StepCounter]) )
@@ -74,6 +76,7 @@ while True:
         StepCounter = StepCount + StepDir
     if directionSwitchCounter >= 275:
         directionSwitchCounter = 0
+        counter -= 1
         if StepDir == 1:
             StepDir = -1
         else:
