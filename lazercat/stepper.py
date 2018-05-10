@@ -84,9 +84,10 @@ while True:
     # If we reach the end of the sequence
     # start again
     if (StepCounter >= StepCount):
+        StepDir = StepDir * -1
         StepCounter = 0
     if (StepCounter < 0):
-        StepCounter = StepCount + StepDir
+        StepCounter = StepCount + 1
 
     # Wait before moving on
     time.sleep(WaitTime)
