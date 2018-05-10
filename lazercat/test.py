@@ -1,3 +1,4 @@
+from stepper2 import printme
 from multiprocessing import Process
 
 rocket = 0
@@ -24,3 +25,7 @@ if __name__ == '__main__':
     p2 = Process(target=func2)
     p1.start()
     p2.start()
+
+
+printme();
+
