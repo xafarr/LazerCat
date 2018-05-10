@@ -50,10 +50,8 @@ while True:
 
     print("StepCounter = " + str(StepCounter))
    # print("Seq[StepCounter] = " + str(Seq[StepCounter]) )
-            StepDir = -1
 
     for pin in range(0, 4):
-            StepDir = -1
         xpin = StepPins[pin]
         if Seq[StepCounter][pin] != 0:
             print("Enable GPIO " + str(xpin))
