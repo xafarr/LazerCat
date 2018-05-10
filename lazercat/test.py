@@ -109,8 +109,7 @@ def mainStepper():
 
 
 if __name__ == '__main__':
-    setupStepperPins()
-    p1 = Process(target=mainStepper)
+    p1 = Process(target=func1)
     p2 = Process(target=func2)
     p1.start()
     p2.start()
