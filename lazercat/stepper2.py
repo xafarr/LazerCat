@@ -33,14 +33,14 @@ Seq = [[1, 0, 0, 1],
        [0, 0, 0, 1]]
 
 StepCount = len(Seq)
-StepDir = 1  # Set to 1 or 2 for clockwise
+StepDir = -1  # Set to 1 or 2 for clockwise
 # Set to -1 or -2 for anti-clockwise
 
 # Read wait time from command line
 if len(sys.argv) > 1:
-    WaitTime = int(sys.argv[1]) / float(20000)
+    WaitTime = int(sys.argv[1]) / float(18000)
 else:
-    WaitTime = 10 / float(20000)
+    WaitTime = 10 / float(18000)
 
 # Initialise variables
 StepCounter = 0
@@ -74,7 +74,7 @@ while True:
     if (StepCounter < 0):
         directionSwitchCounter += 1
         StepCounter = StepCount + StepDir
-    if directionSwitchCounter >= 250:
+    if directionSwitchCounter >= 100:
         directionSwitchCounter = 0
         counter -= 1
         if counter == 0:
