@@ -49,7 +49,7 @@ StepCounter = 0
 while True:
 
     print("StepCounter = " + str(StepCounter))
-   # print("Seq[StepCounter] = " + str(Seq[StepCounter]) )
+    print("Seq[StepCounter] = " + str(Seq[StepCounter]) )
 
     for pin in range(0, 4):
         xpin = StepPins[pin]
@@ -65,10 +65,10 @@ while True:
     # start again
     if (StepCounter >= StepCount):
         StepDir = -1
-        StepCounter = 0
+        StepCounter = StepCount + StepDir
     if (StepCounter < 0):
         StepDir = 1
-        StepCounter = StepCount + StepDir
+        StepCounter = 0
 
     # Wait before moving on
     time.sleep(WaitTime)
