@@ -45,6 +45,8 @@ else:
 # Initialise variables
 StepCounter = 0
 
+directionSwitchCounter = 0
+
 # Start main loop
 while True:
 
@@ -61,14 +63,21 @@ while True:
 
     StepCounter += StepDir
 
+
     # If we reach the end of the sequence
     # start again
     if (StepCounter >= StepCount):
-        StepDir = -1
-        StepCounter = StepCount + StepDir
-    if (StepCounter < 0):
-        StepDir = 1
+        directionSwitchCounter += 1
         StepCounter = 0
+    if (StepCounter < 0):
+        directionSwitchCounter += 1
+        StepCounter = StepCount + StepDir
+    if directionSwitchCounter >= 500:
+        directionSwitchCounter = 0
+        if StepDir == 1:
+            StepDir = -1
+        else:
+            StepDir = 1
 
     # Wait before moving on
     time.sleep(WaitTime)
