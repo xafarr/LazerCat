@@ -65,10 +65,10 @@ StepCounter = 0
 # Start main loop
 while True:
 
-    print
-    StepCounter,
-    print
-    Seq[StepCounter]
+    # print
+    # StepCounter,
+    # print
+    # Seq[StepCounter]
 
     for pin in range(0, 4):
         xpin = StepPins[pin]
@@ -79,7 +79,7 @@ while True:
         else:
             GPIO.output(xpin, False)
 
-    StepCounter += StepDir
+    StepCounter += 1
 
     # If we reach the end of the sequence
     # start again
