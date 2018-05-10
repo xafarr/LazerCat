@@ -55,9 +55,9 @@ StepDir = 1  # Set to 1 or 2 for clockwise
 
 # Read wait time from command line
 if len(sys.argv) > 1:
-    WaitTime = int(sys.argv[1]) / float(1000)
+    WaitTime = int(sys.argv[1]) / float(10000)
 else:
-    WaitTime = 10 / float(1000)
+    WaitTime = 10 / float(10000)
 
 # Initialise variables
 StepCounter = 0
