@@ -72,7 +72,7 @@ while True:
     if (StepCounter < 0):
         directionSwitchCounter += 1
         StepCounter = StepCount + StepDir
-    if directionSwitchCounter >= 100:
+    if directionSwitchCounter >= 250:
         directionSwitchCounter = 0
         if StepDir == 1:
             StepDir = -1
