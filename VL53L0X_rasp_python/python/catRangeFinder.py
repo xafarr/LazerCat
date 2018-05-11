@@ -27,20 +27,54 @@ import random
 import sys
 import time
 from multiprocessing import Process
-from test import mainStepper
 
 import RPi.GPIO as GPIO
 import VL53L0X
 
+Freq = 100 #Hz
+GPIO.setmode(GPIO.BCM)
+red = 4
+green = 5
+blue = 6
 
-def setupStepperPins():
+redd = 13
+greenn = 19
+bluee = 26
+# Setup all the LED colors with an initial
+# duty cycle of 0 which is off
+RED = GPIO.PWM(red, Freq)
+RED.start(0)
+GREEN = GPIO.PWM(green, Freq)
+GREEN.start(0)
+BLUE = GPIO.PWM(blue, Freq)
+BLUE.start(0)
+
+REDD = GPIO.PWM(redd, Freq)
+REDD.start(0)
+GREENN = GPIO.PWM(greenn, Freq)
+GREENN.start(0)
+BLUEE = GPIO.PWM(bluee, Freq)
+BLUEE.start(0)
+
+def setupPins():
     # Use BCM GPIO references
     # instead of physical pin numbers
-    GPIO.setmode(GPIO.BCM)
+    # GPIO.setmode(GPIO.BCM)
 
     # Define GPIO signals to use
     # Physical pins 11,15,16,18
     # GPIO17,GPIO22,GPIO23,GPIO24
+
+    # Set GPIO to Broadcom system and set RGB Pin numbers
+    # Set pins to output mode
+    GPIO.setup(red, GPIO.OUT)
+    GPIO.setup(green, GPIO.OUT)
+    GPIO.setup(blue, GPIO.OUT)
+
+    GPIO.setup(redd, GPIO.OUT)
+    GPIO.setup(greenn, GPIO.OUT)
+    GPIO.setup(bluee, GPIO.OUT)
+    
     StepPins = [17, 22, 23, 24]
 
     # Set all pins as output
@@ -151,7 +185,7 @@ def lightLoop():
     # Main loop
     try:
         # while RUNNING:
-        for x in range(0, 1000):
+        for x in range(0, 10000):
             for x in range(0, 2):
                 for y in range(0, 2):
                     for z in range(0, 2):
@@ -183,45 +217,6 @@ def runWarning():
 
 
 if __name__ == '__main__':
-    # Set GPIO to Broadcom system and set RGB Pin numbers
-    RUNNING = True
-    GPIO.setmode(GPIO.BCM)
-    red = 4
-    green = 5
-    blue = 6
-    
-    redd = 13
-    greenn = 19
-    bluee = 26
-    
-    
-    # Set pins to output mode
-    GPIO.setup(red, GPIO.OUT)
-    GPIO.setup(green, GPIO.OUT)
-    GPIO.setup(blue, GPIO.OUT)
-    
-    GPIO.setup(redd, GPIO.OUT)
-    GPIO.setup(greenn, GPIO.OUT)
-    GPIO.setup(bluee, GPIO.OUT)
-    
-    
-    Freq = 100 #Hz
-    
-    # Setup all the LED colors with an initial
-    # duty cycle of 0 which is off
-    RED = GPIO.PWM(red, Freq)
-    RED.start(0)
-    GREEN = GPIO.PWM(green, Freq)
-    GREEN.start(0)
-    BLUE = GPIO.PWM(blue, Freq)
-    BLUE.start(0)
-    
-    REDD = GPIO.PWM(redd, Freq)
-    REDD.start(0)
-    GREENN = GPIO.PWM(greenn, Freq)
-    GREENN.start(0)
-    BLUEE = GPIO.PWM(bluee, Freq)
-    BLUEE.start(0)
     # setupStepperPins()
     # p1 = Process(target=mainStepper)
     # p2 = Process(target=func2)
@@ -229,7 +224,7 @@ if __name__ == '__main__':
     # p2.start()
     # Create a VL53L0X object
     tof = VL53L0X.VL53L0X()
-    setupStepperPins()
+    setupPins()
     # tts=gTTS(text='Wash you hands, animal', lang='en')
     # tts.save("wash.mp3")
 
