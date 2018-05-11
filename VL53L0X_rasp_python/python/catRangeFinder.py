@@ -24,7 +24,8 @@
 
 import sys
 import time
-import pyttsx
+from gtts import gTTS
+import os
 
 import RPi.GPIO as GPIO
 import VL53L0X
@@ -34,7 +35,8 @@ from test import setupStepperPins, mainStepper
 # Create a VL53L0X object
 tof = VL53L0X.VL53L0X()
 setupStepperPins()
-engine=pyttsx.init()
+tts=gTTS(text='Wash you hands, animal', lang='en')
+tts.save("wash.mp3")
 
 # Start ranging
 tof.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
@@ -52,8 +54,7 @@ while True:
         print("%d mm, %d cm, %d" % (distance, (distance / 10), count))
         if (distance < 800):
             mainStepper()
-            engine.speak("wash your hands, animal!")
-            engine.runAndWait()
+            os.system("mpg321 wash.mp3")
 
     time.sleep(timing / 1000000.00)
 
