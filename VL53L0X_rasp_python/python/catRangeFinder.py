@@ -40,6 +40,17 @@ blue = 6
 redd = 13
 greenn = 19
 bluee = 26
+
+# Set GPIO to Broadcom system and set RGB Pin numbers
+# Set pins to output mode
+GPIO.setup(red, GPIO.OUT)
+GPIO.setup(green, GPIO.OUT)
+GPIO.setup(blue, GPIO.OUT)
+
+GPIO.setup(redd, GPIO.OUT)
+GPIO.setup(greenn, GPIO.OUT)
+GPIO.setup(bluee, GPIO.OUT)
+
 # Setup all the LED colors with an initial
 # duty cycle of 0 which is off
 RED = GPIO.PWM(red, Freq)
@@ -64,16 +75,6 @@ def setupPins():
     # Define GPIO signals to use
     # Physical pins 11,15,16,18
     # GPIO17,GPIO22,GPIO23,GPIO24
-
-    # Set GPIO to Broadcom system and set RGB Pin numbers
-    # Set pins to output mode
-    GPIO.setup(red, GPIO.OUT)
-    GPIO.setup(green, GPIO.OUT)
-    GPIO.setup(blue, GPIO.OUT)
-
-    GPIO.setup(redd, GPIO.OUT)
-    GPIO.setup(greenn, GPIO.OUT)
-    GPIO.setup(bluee, GPIO.OUT)
     
     StepPins = [17, 22, 23, 24]
 
