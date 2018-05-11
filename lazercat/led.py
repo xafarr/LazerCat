@@ -81,7 +81,7 @@ print("Press CTRL + C to quit.\n")
 print(" R  G  B\n---------")
 
 
-def lightLoop() :
+if __name__ == '__main__' :
     # Main loop
     try:
         while RUNNING:
