@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 # MIT License
 # 
@@ -31,6 +31,7 @@ from multiprocessing import Process
 import RPi.GPIO as GPIO
 import VL53L0X
 
+
 def setupPins():
     # Use BCM GPIO references
     # instead of physical pin numbers
@@ -41,15 +42,15 @@ def setupPins():
     GPIO.setup(4, GPIO.OUT)
     GPIO.setup(5, GPIO.OUT)
     GPIO.setup(6, GPIO.OUT)
-    
+
     GPIO.setup(13, GPIO.OUT)
     GPIO.setup(19, GPIO.OUT)
-    GPIO.setup(26, GPIO.OUT)    
-    
+    GPIO.setup(26, GPIO.OUT)
+
     # Define GPIO signals to use
     # Physical pins 11,15,16,18
     # GPIO17,GPIO22,GPIO23,GPIO24
-    
+
     StepPins = [17, 22, 23, 24]
 
     # Set all pins as output
@@ -135,13 +136,14 @@ def washYourHands():
     washChoice = random.choice(washChoices)
     os.system("espeak \"" + washChoice + "\" 2>/dev/null ")
 
+
 # Define a simple function to turn on the LED colors
 def color(R, G, B, on_time):
-    Freq = 100 #Hz
+    Freq = 100  # Hz
     red = 4
     green = 5
     blue = 6
-    
+
     redd = 13
     greenn = 19
     bluee = 26
@@ -153,7 +155,7 @@ def color(R, G, B, on_time):
     GREEN.start(0)
     BLUE = GPIO.PWM(blue, Freq)
     BLUE.start(0)
-    
+
     REDD = GPIO.PWM(redd, Freq)
     REDD.start(0)
     GREENN = GPIO.PWM(greenn, Freq)
@@ -169,7 +171,6 @@ def color(R, G, B, on_time):
     REDD.ChangeDutyCycle(R)
     GREENN.ChangeDutyCycle(G)
     BLUEE.ChangeDutyCycle(B)
-    time.sleep(on_time)
 
     # Turn all LEDs off after on_time seconds
     RED.ChangeDutyCycle(0)
@@ -179,6 +180,9 @@ def color(R, G, B, on_time):
     REDD.ChangeDutyCycle(0)
     GREENN.ChangeDutyCycle(0)
     BLUEE.ChangeDutyCycle(0)
+    
+    time.sleep(on_time)
+
 
 def lightLoop():
     # Main loop
@@ -222,8 +226,8 @@ if __name__ == '__main__':
     # p1.start()
     # p2.start()
     # Create a VL53L0X object
-    tof = VL53L0X.VL53L0X()
     setupPins()
+    tof = VL53L0X.VL53L0X()
     # tts=gTTS(text='Wash you hands, animal', lang='en')
     # tts.save("wash.mp3")
 

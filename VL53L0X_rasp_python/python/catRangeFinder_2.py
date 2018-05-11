@@ -30,6 +30,8 @@ from multiprocessing import Process
 
 import RPi.GPIO as GPIO
 import VL53L0X
+
+
 def setupPins():
     # Use BCM GPIO references
     # instead of physical pin numbers
@@ -38,7 +40,7 @@ def setupPins():
     # Define GPIO signals to use
     # Physical pins 11,15,16,18
     # GPIO17,GPIO22,GPIO23,GPIO24
-    
+
     StepPins = [17, 22, 23, 24]
 
     # Set all pins as output
@@ -120,9 +122,40 @@ def mainStepper():
 def washYourHands():
     washChoices = ['this is the police, wash your hands',
                    'wash your hands you filthy animal',
-                   'please wash your hands']
+                   'please wash your hands',
+                   'wash your hands you filthy animal',
+                   'wash your hands mate',
+                   'wash dem hands playa, playa gonna get played',
+                   'homeboi better wash dem hands so homeboi can help  prevent Diarrheal related diseases',
+                   'do you touch your colleagues with those hands, wash your hands',
+                   'other people do not want to taste your hands for lunch, please wash',
+                   'do not be a tool, wash your hands fool',
+                   'wash your hands dude, people are dying in this world',
+                   'washing hands is something everyone can participate in',
+                   'stop, this is the poilce, wash your hands'
+                   'when leaving the john, wash your hands you filthy animal',
+                   'Be aware, wash with care. Please wash your hands',
+                   'Break the germ cycle. Wash your hands',
+                   'Clean well so you can eat well. Wash your hands',
+                   'Do not be a dope, water and soap, wash dem hands',
+                   'Do not be a bum, wash off the scum',
+                   'It would be pretty neat if you wash your hands before you eat',
+                   'In all the lands, wash your hands',
+                   'Infection control is in your hands',
+                   'Make germ prevention your intention. Wash your hands',
+                   'Stop! Handwashing is practiced here',
+                   'Ten out of ten colleagues prefer care from clean hands',
+                   'Washing hands prevents disease and puts everyone else at ease',
+                   'You are grand if you wash your hands',
+                   'If your hands are clean, you are the queen.Wash your hands',
+                   'Avoid an aggravation, stop contamination, wash your hands',
+                   'do not be gross, wash your hands',
+                   'only cool people wash their hands',
+                   'wash those hands',
+                   'sparkle and shine, wash your hands every time']
     washChoice = random.choice(washChoices)
     os.system("espeak \"" + washChoice + "\" 2>/dev/null ")
+
 
 # Define a simple function to turn on the LED colors
 def color(R, G, B, on_time):
@@ -145,40 +178,42 @@ def color(R, G, B, on_time):
     GREENN.ChangeDutyCycle(0)
     BLUEE.ChangeDutyCycle(0)
 
+
 def lightLoop():
     # Main loop
-    #try:
-        # while RUNNING:
-        for ctr in range(0, 2):
-            for x in range(0, 2):
-                for y in range(0, 2):
-                    for z in range(0, 2):
-                        print(x, y, z)
-                        # Slowly ramp up power percentage of each active color
-                        for i in range(0, 101):
-                            print("LED Light: ")
-                            color((x * i), (y * i), (z * i), .002)
+    # try:
+    # while RUNNING:
+    for ctr in range(0, 2):
+        for x in range(0, 2):
+            for y in range(0, 2):
+                for z in range(0, 2):
+                    print(x, y, z)
+                    # Slowly ramp up power percentage of each active color
+                    for i in range(0, 101):
+                        print("LED Light: ")
+                        color((x * i), (y * i), (z * i), .002)
 
-    # If CTRL+C is pressed the main loop is broken
-    # except KeyboardInterrupt:
-    #     RUNNING = False
-    #     print("Quitting")
 
-    # Actions under 'finally' will always be called
-    # regardless of what stopped the program
-    #finally:
-        # Stop and cleanup so the pins
-        # are available to be used again
-    #    GPIO.cleanup()
+# If CTRL+C is pressed the main loop is broken
+# except KeyboardInterrupt:
+#     RUNNING = False
+#     print("Quitting")
+
+# Actions under 'finally' will always be called
+# regardless of what stopped the program
+# finally:
+# Stop and cleanup so the pins
+# are available to be used again
+#    GPIO.cleanup()
 
 
 def runWarning():
     stepper = Process(target=mainStepper)
     voice = Process(target=washYourHands)
-    #light = Process(target=lightLoop)
+    # light = Process(target=lightLoop)
     stepper.start()
     voice.start()
-    #light.start()
+    # light.start()
 
 
 if __name__ == '__main__':
@@ -188,7 +223,7 @@ if __name__ == '__main__':
     # p1.start()
     # p2.start()
     # Create a VL53L0X object
-    
+
     tof = VL53L0X.VL53L0X()
     setupPins()
     # tts=gTTS(text='Wash you hands, animal', lang='en')
@@ -197,7 +232,7 @@ if __name__ == '__main__':
     # Start ranging
     tof.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
 
-    Freq = 100 #Hz
+    Freq = 100  # Hz
     red = 4
     green = 5
     blue = 6
@@ -230,18 +265,18 @@ if __name__ == '__main__':
         if (distance > 0):
             print("%d mm, %d cm, %d" % (distance, (distance / 10), count))
             if (distance < 800):
-                #tof.stop_ranging()
-                #lightLoop();
+                # tof.stop_ranging()
+                # lightLoop();
                 GPIO.output(red, 1)
                 GPIO.output(greenn, 1)
                 GPIO.output(21, 1)
                 runWarning()
                 time.sleep(2.5)
-                #tof.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
+                # tof.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
 
         time.sleep(timing / 1000000.00)
         GPIO.output(red, 0)
-        GPIO.output(greenn,0);
+        GPIO.output(greenn, 0);
         GPIO.output(21, 0)
 
     # tof.stop_ranging()
