@@ -29,14 +29,19 @@ import os
 
 import RPi.GPIO as GPIO
 import VL53L0X
+import random
 
 from test import setupStepperPins, mainStepper
 
 # Create a VL53L0X object
 tof = VL53L0X.VL53L0X()
 setupStepperPins()
-tts=gTTS(text='Wash you hands, animal', lang='en')
-tts.save("wash.mp3")
+#tts=gTTS(text='Wash you hands, animal', lang='en')
+#tts.save("wash.mp3")
+
+washChoices = ['this is the police, wash your hands',
+        'wash your hands you filthy animal',
+        'please wash your hands']
 
 # Start ranging
 tof.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
@@ -54,7 +59,8 @@ while True:
         print("%d mm, %d cm, %d" % (distance, (distance / 10), count))
         if (distance < 800):
             mainStepper()
-            os.system("mpg321 wash.mp3")
+            washChoice = random.choice(washChoices)
+            os.system("espeak \"" + washChoice + "\" 2>/dev/null ")
 
     time.sleep(timing / 1000000.00)
 
