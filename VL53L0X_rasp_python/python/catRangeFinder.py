@@ -31,15 +31,6 @@ from multiprocessing import Process
 import RPi.GPIO as GPIO
 import VL53L0X
 
-Freq = 100 #Hz
-red = 4
-green = 5
-blue = 6
-
-redd = 13
-greenn = 19
-bluee = 26
-
 def setupPins():
     # Use BCM GPIO references
     # instead of physical pin numbers
@@ -47,13 +38,13 @@ def setupPins():
 
     # Set GPIO to Broadcom system and set RGB Pin numbers
     # Set pins to output mode
-    GPIO.setup(red, GPIO.OUT)
-    GPIO.setup(green, GPIO.OUT)
-    GPIO.setup(blue, GPIO.OUT)
+    GPIO.setup(4, GPIO.OUT)
+    GPIO.setup(5, GPIO.OUT)
+    GPIO.setup(6, GPIO.OUT)
     
-    GPIO.setup(redd, GPIO.OUT)
-    GPIO.setup(greenn, GPIO.OUT)
-    GPIO.setup(bluee, GPIO.OUT)    
+    GPIO.setup(13, GPIO.OUT)
+    GPIO.setup(19, GPIO.OUT)
+    GPIO.setup(26, GPIO.OUT)    
     
     # Define GPIO signals to use
     # Physical pins 11,15,16,18
@@ -146,6 +137,14 @@ def washYourHands():
 
 # Define a simple function to turn on the LED colors
 def color(R, G, B, on_time):
+    Freq = 100 #Hz
+    red = 4
+    green = 5
+    blue = 6
+    
+    redd = 13
+    greenn = 19
+    bluee = 26
     # Setup all the LED colors with an initial
     # duty cycle of 0 which is off
     RED = GPIO.PWM(red, Freq)
@@ -183,17 +182,16 @@ def color(R, G, B, on_time):
 
 def lightLoop():
     # Main loop
-    try:
-        # while RUNNING:
-        for ctr in range(0, 1000):
-            for x in range(0, 2):
-                for y in range(0, 2):
-                    for z in range(0, 2):
-                        print(x, y, z)
-                        # Slowly ramp up power percentage of each active color
-                        for i in range(0, 101):
-                            print("LED Light")
-                            color((x * i), (y * i), (z * i), .002)
+    # while RUNNING:
+    for ctr in range(0, 1000):
+        for x in range(0, 2):
+            for y in range(0, 2):
+                for z in range(0, 2):
+                    print(x, y, z)
+                    # Slowly ramp up power percentage of each active color
+                    for i in range(0, 101):
+                        print("LED Light")
+                        color((x * i), (y * i), (z * i), .002)
 
     # If CTRL+C is pressed the main loop is broken
     # except KeyboardInterrupt:
@@ -202,10 +200,10 @@ def lightLoop():
 
     # Actions under 'finally' will always be called
     # regardless of what stopped the program
-    finally:
-        # Stop and cleanup so the pins
-        # are available to be used again
-        GPIO.cleanup()
+    # finally:
+    #     # Stop and cleanup so the pins
+    #     # are available to be used again
+    #     GPIO.cleanup()
 
 
 def runWarning():
