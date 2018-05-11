@@ -26,46 +26,12 @@ import sys
 import time
 from gtts import gTTS
 import os
-
+from multiprocessing import Process
 import RPi.GPIO as GPIO
 import VL53L0X
 import random
 
 from test import setupStepperPins, mainStepper
-
-# Create a VL53L0X object
-tof = VL53L0X.VL53L0X()
-setupStepperPins()
-#tts=gTTS(text='Wash you hands, animal', lang='en')
-#tts.save("wash.mp3")
-
-washChoices = ['this is the police, wash your hands',
-        'wash your hands you filthy animal',
-        'please wash your hands']
-
-# Start ranging
-tof.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
-
-timing = tof.get_timing()
-if (timing < 20000):
-    timing = 20000
-print("Timing %d ms" % (timing / 1000))
-
-count = 0
-while True:
-    count = +count
-    distance = tof.get_distance()
-    if (distance > 0):
-        print("%d mm, %d cm, %d" % (distance, (distance / 10), count))
-        if (distance < 800):
-            mainStepper()
-            washChoice = random.choice(washChoices)
-            os.system("espeak \"" + washChoice + "\" 2>/dev/null ")
-
-    time.sleep(timing / 1000000.00)
-
-
-# tof.stop_ranging()
 
 def setupStepperPins():
     # Use BCM GPIO references
@@ -152,9 +118,49 @@ def mainStepper():
         # Wait before moving on
         time.sleep(WaitTime)
 
-# if __name__ == '__main__':
-#     setupStepperPins()
-#     p1 = Process(target=mainStepper)
-#     p2 = Process(target=func2)
-#     p1.start()
-#     p2.start()
+def washYourHands():
+    washChoices = ['this is the police, wash your hands',
+                   'wash your hands you filthy animal',
+                   'please wash your hands']
+    washChoice = random.choice(washChoices)
+    os.system("espeak \"" + washChoice + "\" 2>/dev/null ")
+    
+def runWarning():
+    stepper = Process(target=mainStepper)
+    voice = Process(target=washYourHands)
+    stepper.start()
+    voice.start()
+
+if __name__ == '__main__':
+    # setupStepperPins()
+    # p1 = Process(target=mainStepper)
+    # p2 = Process(target=func2)
+    # p1.start()
+    # p2.start()
+    # Create a VL53L0X object
+    tof = VL53L0X.VL53L0X()
+    setupStepperPins()
+    #tts=gTTS(text='Wash you hands, animal', lang='en')
+    #tts.save("wash.mp3")
+    
+    # Start ranging
+    tof.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
+    
+    timing = tof.get_timing()
+    if (timing < 20000):
+        timing = 20000
+    print("Timing %d ms" % (timing / 1000))
+    
+    count = 0
+    while True:
+        count = +count
+        distance = tof.get_distance()
+        if (distance > 0):
+            print("%d mm, %d cm, %d" % (distance, (distance / 10), count))
+            if (distance < 800):
+                runWarning()
+    
+        time.sleep(timing / 1000000.00)
+    
+    
+    # tof.stop_ranging()
