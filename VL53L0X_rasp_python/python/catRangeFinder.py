@@ -185,16 +185,16 @@ def color(R, G, B, on_time):
 def lightLoop():
     # Main loop
     try:
-        # while RUNNING:
-        for x in range(0, 10000):
+        for ctr in range(0, 100):
             for x in range(0, 2):
-                for y in range(0, 2):
-                    for z in range(0, 2):
-                        print(x, y, z)
-                        # Slowly ramp up power percentage of each active color
-                        for i in range(0, 101):
-                            print("LED Light")
-                            color((x * i), (y * i), (z * i), .002)
+                for x in range(0, 2):
+                    for y in range(0, 2):
+                        for z in range(0, 2):
+                            print(x, y, z)
+                            # Slowly ramp up power percentage of each active color
+                            for i in range(0, 101):
+                                print("LED Light")
+                                color((x * i), (y * i), (z * i), .002)
 
     # If CTRL+C is pressed the main loop is broken
     # except KeyboardInterrupt:
