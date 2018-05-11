@@ -32,7 +32,6 @@ import RPi.GPIO as GPIO
 import VL53L0X
 
 Freq = 100 #Hz
-GPIO.setmode(GPIO.BCM)
 red = 4
 green = 5
 blue = 6
@@ -41,37 +40,21 @@ redd = 13
 greenn = 19
 bluee = 26
 
-# Set GPIO to Broadcom system and set RGB Pin numbers
-# Set pins to output mode
-GPIO.setup(red, GPIO.OUT)
-GPIO.setup(green, GPIO.OUT)
-GPIO.setup(blue, GPIO.OUT)
-
-GPIO.setup(redd, GPIO.OUT)
-GPIO.setup(greenn, GPIO.OUT)
-GPIO.setup(bluee, GPIO.OUT)
-
-# Setup all the LED colors with an initial
-# duty cycle of 0 which is off
-RED = GPIO.PWM(red, Freq)
-RED.start(0)
-GREEN = GPIO.PWM(green, Freq)
-GREEN.start(0)
-BLUE = GPIO.PWM(blue, Freq)
-BLUE.start(0)
-
-REDD = GPIO.PWM(redd, Freq)
-REDD.start(0)
-GREENN = GPIO.PWM(greenn, Freq)
-GREENN.start(0)
-BLUEE = GPIO.PWM(bluee, Freq)
-BLUEE.start(0)
-
 def setupPins():
     # Use BCM GPIO references
     # instead of physical pin numbers
-    # GPIO.setmode(GPIO.BCM)
+    GPIO.setmode(GPIO.BCM)
 
+    # Set GPIO to Broadcom system and set RGB Pin numbers
+    # Set pins to output mode
+    GPIO.setup(red, GPIO.OUT)
+    GPIO.setup(green, GPIO.OUT)
+    GPIO.setup(blue, GPIO.OUT)
+    
+    GPIO.setup(redd, GPIO.OUT)
+    GPIO.setup(greenn, GPIO.OUT)
+    GPIO.setup(bluee, GPIO.OUT)    
+    
     # Define GPIO signals to use
     # Physical pins 11,15,16,18
     # GPIO17,GPIO22,GPIO23,GPIO24
@@ -163,6 +146,22 @@ def washYourHands():
 
 # Define a simple function to turn on the LED colors
 def color(R, G, B, on_time):
+    # Setup all the LED colors with an initial
+    # duty cycle of 0 which is off
+    RED = GPIO.PWM(red, Freq)
+    RED.start(0)
+    GREEN = GPIO.PWM(green, Freq)
+    GREEN.start(0)
+    BLUE = GPIO.PWM(blue, Freq)
+    BLUE.start(0)
+    
+    REDD = GPIO.PWM(redd, Freq)
+    REDD.start(0)
+    GREENN = GPIO.PWM(greenn, Freq)
+    GREENN.start(0)
+    BLUEE = GPIO.PWM(bluee, Freq)
+    BLUEE.start(0)
+
     # Color brightness range is 0-100%
     RED.ChangeDutyCycle(R)
     GREEN.ChangeDutyCycle(G)
@@ -210,11 +209,11 @@ def lightLoop():
 
 
 def runWarning():
-    stepper = Process(target=mainStepper)
-    voice = Process(target=washYourHands)
+    #stepper = Process(target=mainStepper)
+    #voice = Process(target=washYourHands)
     light = Process(target=lightLoop)
-    stepper.start()
-    voice.start()
+    #stepper.start()
+    #voice.start()
     light.start()
 
 
