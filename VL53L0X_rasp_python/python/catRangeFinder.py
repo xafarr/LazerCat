@@ -193,6 +193,7 @@ def lightLoop():
                         print(x, y, z)
                         # Slowly ramp up power percentage of each active color
                         for i in range(0, 101):
+                            print("LED Light")
                             color((x * i), (y * i), (z * i), .002)
 
     # If CTRL+C is pressed the main loop is broken
