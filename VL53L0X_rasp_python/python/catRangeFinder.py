@@ -28,8 +28,11 @@ import time
 import RPi.GPIO as GPIO
 import VL53L0X
 
+from test import setupStepperPins, mainStepper
+
 # Create a VL53L0X object
 tof = VL53L0X.VL53L0X()
+setupStepperPins()
 
 # Start ranging
 tof.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
@@ -45,6 +48,8 @@ while True:
     distance = tof.get_distance()
     if (distance > 0):
         print("%d mm, %d cm, %d" % (distance, (distance / 10), count))
+        if (distance < 800):
+            mainStepper()
 
     time.sleep(timing / 1000000.00)
 
