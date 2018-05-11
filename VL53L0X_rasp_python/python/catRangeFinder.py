@@ -209,11 +209,11 @@ def lightLoop():
 
 
 def runWarning():
-    #stepper = Process(target=mainStepper)
-    #voice = Process(target=washYourHands)
+    stepper = Process(target=mainStepper)
+    voice = Process(target=washYourHands)
     light = Process(target=lightLoop)
-    #stepper.start()
-    #voice.start()
+    stepper.start()
+    voice.start()
     light.start()
 
 
