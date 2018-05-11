@@ -158,9 +158,11 @@ if __name__ == '__main__':
         if (distance > 0):
             print("%d mm, %d cm, %d" % (distance, (distance / 10), count))
             if (distance < 800):
+                tof.stop_ranging()
                 runWarning()
+                tof.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
     
-        time.sleep(timing / 1000000.00)
+        time.sleep(timing / 10000.00)
     
     
     # tof.stop_ranging()
