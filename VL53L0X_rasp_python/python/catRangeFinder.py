@@ -162,7 +162,7 @@ if __name__ == '__main__':
                 runWarning()
                 tof.start_ranging(VL53L0X.VL53L0X_BETTER_ACCURACY_MODE)
     
-        time.sleep(timing / 100000.00)
+        time.sleep(timing / 1000000.00)
     
     
     # tof.stop_ranging()
