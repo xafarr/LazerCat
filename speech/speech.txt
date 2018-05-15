@@ -24,7 +24,3 @@
 'You are grand if you wash your hands',
 'If your hands are clean, you're the queen. Wash your hands',
 'Avoid an aggravation, stop contamination, wash your hands',
-'don't be gross, wash your hands',
-'only cool people wash their hands',
-'wash those hands',
-'sparkle and shine, wash your hands every time'
